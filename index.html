@@ -1,452 +1,154 @@
+
+
+cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CLAWHAUL — The AI Freight Network</title>
+<meta name="description" content="No brokers. No phone calls. CLAWHAUL matches every load to the right driver instantly and pays in 24 hours. Join the waitlist today.">
+<!-- Google Analytics - Replace GA_MEASUREMENT_ID after setup -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --black: #0a0a0a;
-    --yellow: #FFD000;
-    --orange: #FF6B00;
-    --white: #F5F0E8;
-    --gray: #1a1a1a;
-    --mid: #2a2a2a;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    overflow-x: hidden;
-  }
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid #222;
-    position: sticky;
-    top: 0;
-    background: rgba(10,10,10,0.95);
-    backdrop-filter: blur(10px);
-    z-index: 100;
-  }
-  .logo {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 1.8rem;
-    letter-spacing: 0.05em;
-    color: var(--yellow);
-  }
-  .logo span { color: var(--white); }
-  nav a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    opacity: 0.6;
-    transition: opacity 0.2s;
-  }
-  nav a:hover { opacity: 1; }
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 6rem 2rem 4rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-tag {
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    animation: fadeUp 0.6s ease both;
-  }
-  .hero-tag::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 2px;
-    background: var(--yellow);
-  }
-  h1 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: clamp(3.5rem, 12vw, 9rem);
-    line-height: 0.9;
-    text-transform: uppercase;
-    letter-spacing: -0.01em;
-    margin-bottom: 2rem;
-    animation: fadeUp 0.6s ease 0.1s both;
-  }
-  h1 em {
-    font-style: normal;
-    color: var(--yellow);
-    display: block;
-  }
-  .hero-sub {
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    font-weight: 300;
-    line-height: 1.6;
-    max-width: 540px;
-    opacity: 0.75;
-    margin-bottom: 3rem;
-    animation: fadeUp 0.6s ease 0.2s both;
-  }
-  .stats-bar {
-    display: flex;
-    gap: 2rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-    animation: fadeUp 0.6s ease 0.3s both;
-  }
-  .stat { border-left: 2px solid var(--yellow); padding-left: 1rem; }
-  .stat-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.8rem;
-    color: var(--yellow);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.75rem;
-    opacity: 0.5;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-top: 0.25rem;
-  }
-  .btn-group {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    animation: fadeUp 0.6s ease 0.4s both;
-  }
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 1rem 2rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-primary { background: var(--yellow); color: var(--black); }
-  .btn-primary:hover {
-    background: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(255,208,0,0.3);
-  }
-  .btn-secondary {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid #333;
-  }
-  .btn-secondary:hover { border-color: var(--white); transform: translateY(-2px); }
-  .ticker {
-    background: var(--yellow);
-    color: var(--black);
-    padding: 0.6rem 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker-inner {
-    display: inline-flex;
-    gap: 3rem;
-    animation: ticker 20s linear infinite;
-  }
-  .ticker-item {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .ticker-item::before { content: '▶'; font-size: 0.6rem; }
-  .section {
-    padding: 6rem 2rem;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .section-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--yellow);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  .section-label::before {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 2px;
-    background: var(--yellow);
-  }
-  h2 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    text-transform: uppercase;
-    line-height: 0.95;
-    margin-bottom: 3rem;
-  }
-  h2 span { color: var(--yellow); }
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1px;
-    background: #222;
-    border: 1px solid #222;
-    margin-bottom: 6rem;
-  }
-  .step {
-    background: var(--black);
-    padding: 2.5rem;
-    transition: background 0.3s;
-  }
-  .step:hover { background: var(--gray); }
-  .step-num {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 4rem;
-    color: #1f1f1f;
-    line-height: 1;
-    margin-bottom: 1rem;
-    transition: color 0.3s;
-  }
-  .step:hover .step-num { color: var(--yellow); }
-  .step h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    margin-bottom: 0.75rem;
-    letter-spacing: 0.05em;
-  }
-  .step p { font-size: 0.9rem; line-height: 1.7; opacity: 0.6; }
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 6rem;
-  }
-  .card {
-    border: 1px solid #222;
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.3s;
-  }
-  .card:hover { border-color: var(--yellow); }
-  .card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--yellow);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s;
-  }
-  .card:hover::before { transform: scaleX(1); }
-  .card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
-  .card h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .card p { font-size: 0.9rem; line-height: 1.7; opacity: 0.6; margin-bottom: 1.5rem; }
-  .card-benefit {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--yellow);
-    margin-bottom: 0.5rem;
-  }
-  .card-benefit::before { content: '✓'; }
-  .numbers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1px;
-    background: #1a1a1a;
-    border: 1px solid #1a1a1a;
-    margin-bottom: 6rem;
-  }
-  .number-box { background: var(--black); padding: 3rem 2rem; text-align: center; }
-  .number-big {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 900;
-    font-size: 3.5rem;
-    color: var(--yellow);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-  .number-label { font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.12em; }
-  .signup-section {
-    background: var(--gray);
-    border: 1px solid #2a2a2a;
-    padding: 4rem 2rem;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    margin-bottom: 2rem;
-  }
-  .signup-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at center, rgba(255,208,0,0.05) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .signup-section h2 { margin-bottom: 1rem; }
-  .signup-section p {
-    opacity: 0.6;
-    margin-bottom: 2.5rem;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  .signup-form {
-    display: flex;
-    gap: 0.75rem;
-    max-width: 480px;
-    margin: 0 auto 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .signup-form input {
-    flex: 1;
-    min-width: 220px;
-    padding: 1rem 1.25rem;
-    background: var(--black);
-    border: 1px solid #333;
-    color: var(--white);
-    font-family: 'Barlow', sans-serif;
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-  .signup-form input:focus { border-color: var(--yellow); }
-  .signup-form input::placeholder { opacity: 0.4; }
-  .signup-tabs {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-  }
-  .tab {
-    padding: 0.6rem 1.5rem;
-    border: 1px solid #333;
-    background: transparent;
-    color: var(--white);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-    opacity: 0.5;
-  }
-  .tab.active { border-color: var(--yellow); color: var(--yellow); opacity: 1; }
-  .small-text { font-size: 0.75rem; opacity: 0.4; margin-top: 1rem; }
-  footer {
-    border-top: 1px solid #1a1a1a;
-    padding: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  footer .logo { font-size: 1.2rem; }
-  footer p { font-size: 0.8rem; opacity: 0.3; }
-  .success-msg {
-    display: none;
-    color: var(--yellow);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
-    margin-top: 1rem;
-  }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes ticker {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-  @media (max-width: 600px) {
-    nav { padding: 1rem; }
-    .hero { padding: 5rem 1.5rem 3rem; }
-    .section { padding: 4rem 1.5rem; }
-    .stats-bar { gap: 1.5rem; }
-    footer { flex-direction: column; text-align: center; }
-  }
+:root{--black:#0a0a0a;--yellow:#FFD000;--orange:#FF6B00;--white:#F5F0E8;--gray:#1a1a1a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;overflow-x:hidden;}
+nav{display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;border-bottom:1px solid #1a1a1a;position:sticky;top:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(20px);z-index:100;}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;letter-spacing:0.05em;color:var(--yellow);}
+.logo span{color:var(--white);}
+.nav-links{display:flex;align-items:center;gap:1.5rem;}
+.nav-links a{color:var(--white);text-decoration:none;font-size:0.8rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;transition:opacity 0.2s;}
+.nav-links a:hover{opacity:1;}
+.nav-cta{background:var(--yellow)!important;color:var(--black)!important;opacity:1!important;padding:0.5rem 1.2rem;font-weight:700!important;}
+.announce{background:#1a1a00;border-bottom:1px solid #333300;color:var(--yellow);text-align:center;padding:0.6rem 1rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.05em;}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+.hero::after{content:'HAUL';position:absolute;right:-2rem;top:50%;transform:translateY(-50%);font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(10rem,28vw,22rem);color:transparent;-webkit-text-stroke:1px #1a1a1a;pointer-events:none;line-height:1;user-select:none;}
+.hero-tag{font-size:0.75rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:1.5rem;display:flex;align-items:center;gap:0.75rem;animation:fadeUp 0.6s ease both;}
+.hero-tag::before{content:'';display:block;width:2rem;height:2px;background:var(--yellow);}
+h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(3.5rem,12vw,9rem);line-height:0.9;text-transform:uppercase;margin-bottom:2rem;animation:fadeUp 0.6s ease 0.1s both;}
+h1 em{font-style:normal;color:var(--yellow);display:block;}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.25rem);font-weight:300;line-height:1.6;max-width:520px;opacity:0.75;margin-bottom:2.5rem;animation:fadeUp 0.6s ease 0.2s both;}
+.stats-bar{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:2.5rem;animation:fadeUp 0.6s ease 0.3s both;}
+.stat{border-left:2px solid var(--yellow);padding-left:1rem;}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.8rem;color:var(--yellow);line-height:1;}
+.stat-label{font-size:0.72rem;opacity:0.5;text-transform:uppercase;letter-spacing:0.1em;margin-top:0.2rem;}
+.btn-group{display:flex;gap:1rem;flex-wrap:wrap;animation:fadeUp 0.6s ease 0.4s both;}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;padding:1rem 2rem;font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.2s;}
+.btn-primary{background:var(--yellow);color:var(--black);}
+.btn-primary:hover{background:#fff;transform:translateY(-2px);}
+.btn-secondary{background:transparent;color:var(--white);border:1px solid #333;}
+.btn-secondary:hover{border-color:var(--white);transform:translateY(-2px);}
+.ticker{background:var(--yellow);color:var(--black);padding:0.6rem 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-flex;gap:3rem;animation:ticker 25s linear infinite;}
+.ticker-item{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:0.15em;text-transform:uppercase;display:flex;align-items:center;gap:1rem;}
+.ticker-item::before{content:'▶';font-size:0.6rem;}
+.section{padding:6rem 2rem;max-width:1100px;margin:0 auto;}
+.section-label{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--yellow);margin-bottom:1rem;display:flex;align-items:center;gap:0.75rem;}
+.section-label::before{content:'';display:block;width:2rem;height:2px;background:var(--yellow);}
+h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(2.2rem,6vw,4rem);text-transform:uppercase;line-height:0.95;margin-bottom:3rem;}
+h2 span{color:var(--yellow);}
+.calculator{background:var(--gray);border:1px solid #2a2a2a;padding:3rem 2rem;margin-bottom:6rem;}
+.calc-title{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.8rem;text-transform:uppercase;margin-bottom:2rem;}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.calc-label{display:block;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;opacity:0.5;margin-bottom:0.4rem;}
+.calc-input{background:var(--black);border:1px solid #333;color:var(--white);padding:0.75rem 1rem;font-family:'Barlow',sans-serif;font-size:1.1rem;outline:none;transition:border-color 0.2s;width:100%;}
+.calc-input:focus{border-color:var(--yellow);}
+.calc-result{grid-column:1/-1;background:var(--black);border:1px solid var(--yellow);padding:2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1.5rem;margin-top:1rem;}
+.result-item{text-align:center;}
+.result-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2.5rem;line-height:1;margin-bottom:0.3rem;}
+.result-num.positive{color:#00ff88;}
+.result-num.negative{color:#ff4444;}
+.result-num.yellow{color:var(--yellow);}
+.result-label{font-size:0.72rem;opacity:0.5;text-transform:uppercase;letter-spacing:0.08em;}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:#222;border:1px solid #222;margin-bottom:6rem;}
+.step{background:var(--black);padding:2.5rem;transition:background 0.3s;}
+.step:hover{background:var(--gray);}
+.step-num{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:4rem;color:#1f1f1f;line-height:1;margin-bottom:1rem;transition:color 0.3s;}
+.step:hover .step-num{color:var(--yellow);}
+.step h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;text-transform:uppercase;margin-bottom:0.75rem;}
+.step p{font-size:0.88rem;line-height:1.7;opacity:0.6;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:6rem;}
+.card{border:1px solid #222;padding:2.5rem;position:relative;overflow:hidden;transition:border-color 0.3s;}
+.card:hover{border-color:var(--yellow);}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow);transform:scaleX(0);transform-origin:left;transition:transform 0.3s;}
+.card:hover::before{transform:scaleX(1);}
+.card-icon{font-size:2.5rem;margin-bottom:1.5rem;}
+.card h3{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;text-transform:uppercase;margin-bottom:1rem;}
+.card p{font-size:0.88rem;line-height:1.7;opacity:0.6;margin-bottom:1.5rem;}
+.card-benefit{display:flex;align-items:center;gap:0.5rem;font-size:0.83rem;font-weight:500;color:var(--yellow);margin-bottom:0.5rem;}
+.card-benefit::before{content:'✓';}
+.numbers{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:#1a1a1a;border:1px solid #1a1a1a;margin-bottom:6rem;}
+.number-box{background:var(--black);padding:2.5rem 2rem;text-align:center;}
+.number-big{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:3rem;color:var(--yellow);line-height:1;margin-bottom:0.5rem;}
+.number-label{font-size:0.75rem;opacity:0.5;text-transform:uppercase;letter-spacing:0.1em;}
+.signup-section{background:var(--gray);border:1px solid #2a2a2a;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden;margin-bottom:2rem;}
+.signup-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,208,0,0.05) 0%,transparent 70%);pointer-events:none;}
+.signup-tabs{display:flex;gap:1rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
+.tab{padding:0.6rem 1.5rem;border:1px solid #333;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
+.tab:hover,.tab.active{border-color:var(--yellow);color:var(--yellow);}
+.disclaimer{background:#1a1a1a;border:1px solid #2a2a2a;padding:1.5rem 2rem;margin-bottom:2rem;font-size:0.82rem;line-height:1.6;opacity:0.6;}
+.disclaimer strong{color:var(--yellow);opacity:1;}
+footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;}
+.footer-brand .logo{font-size:1.5rem;margin-bottom:1rem;}
+.footer-brand p{font-size:0.8rem;opacity:0.4;line-height:1.6;}
+.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.4;margin-bottom:1rem;}
+.footer-col a{display:block;color:var(--white);text-decoration:none;font-size:0.82rem;opacity:0.4;margin-bottom:0.5rem;transition:opacity 0.2s;}
+.footer-col a:hover{opacity:1;}
+.footer-bottom{border-top:1px solid #1a1a1a;padding:1.5rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom p{font-size:0.72rem;opacity:0.3;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@media(max-width:600px){
+  nav{padding:1rem;}
+  .nav-links a:not(.nav-cta){display:none;}
+  .hero{padding:5rem 1.5rem 3rem;}
+  .hero::after{display:none;}
+  .section{padding:4rem 1.5rem;}
+  .calc-grid{grid-template-columns:1fr;}
+  footer{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
+
+<div class="announce">🚛 CLAWHAUL is launching soon — join the waitlist and be first in line</div>
+
 <nav>
   <div class="logo">CLAW<span>HAUL</span></div>
-  <a href="#signup">Join Waitlist</a>
+  <div class="nav-links">
+    <a href="#how">How It Works</a>
+    <a href="#calculator">Savings</a>
+    <a href="#signup">Join</a>
+    <a href="https://tally.so/r/2E7APL" class="nav-cta">Join Free →</a>
+  </div>
 </nav>
+
 <section class="hero">
-  <div class="hero-tag">The future of freight is here</div>
-  <h1>The AI That<em>Runs Trucking.</em></h1>
-  <p class="hero-sub">No brokers. No phone calls. No 30-day waits for payment. CLAWHAUL matches every load to the right driver instantly — and pays in 24 hours.</p>
+  <div class="hero-tag">AI freight network — launching soon</div>
+  <h1>Stop Feeding<em>Brokers.</em></h1>
+  <p class="hero-sub">Brokers take 20-30% of every load and make you wait 60 days to get paid. CLAWHAUL takes 5% flat and pays you in 24 hours. Join the waitlist now and be first when we launch.</p>
   <div class="stats-bar">
-    <div class="stat">
-      <div class="stat-num">5%</div>
-      <div class="stat-label">Our cut. Not 20-30%.</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">24hr</div>
-      <div class="stat-label">Driver payment</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">$906B</div>
-      <div class="stat-label">Industry we're disrupting</div>
-    </div>
+    <div class="stat"><div class="stat-num">5%</div><div class="stat-label">Flat fee. Not 20-30%.</div></div>
+    <div class="stat"><div class="stat-num">24hr</div><div class="stat-label">Guaranteed payment</div></div>
+    <div class="stat"><div class="stat-num">$906B</div><div class="stat-label">Industry we're disrupting</div></div>
+    <div class="stat"><div class="stat-num">Free</div><div class="stat-label">To join waitlist</div></div>
   </div>
   <div class="btn-group">
-    <a href="#signup" class="btn btn-primary">Join as Driver →</a>
-    <a href="#signup" class="btn btn-secondary">Post a Load</a>
+    <a href="https://tally.so/r/2E7APL" class="btn btn-primary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Hero Driver'})">Join as Driver — Free →</a>
+    <a href="https://tally.so/r/2E7APL" class="btn btn-secondary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Hero Shipper'})">I Need Trucks →</a>
   </div>
 </section>
+
 <div class="ticker">
   <div class="ticker-inner">
     <span class="ticker-item">Instant Load Matching</span>
@@ -456,6 +158,7 @@
     <span class="ticker-item">AI-Powered Dispatch</span>
     <span class="ticker-item">No Deadhead Miles</span>
     <span class="ticker-item">Zero Phone Calls</span>
+    <span class="ticker-item">No Broker Markup</span>
     <span class="ticker-item">Instant Load Matching</span>
     <span class="ticker-item">24-Hour Driver Payment</span>
     <span class="ticker-item">Full DOT Verification</span>
@@ -463,131 +166,185 @@
     <span class="ticker-item">AI-Powered Dispatch</span>
     <span class="ticker-item">No Deadhead Miles</span>
     <span class="ticker-item">Zero Phone Calls</span>
+    <span class="ticker-item">No Broker Markup</span>
   </div>
 </div>
-<div class="section">
-  <div class="section-label">How it works</div>
-  <h2>Simple as <span>it gets.</span></h2>
-  <div class="steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <h3>Sign Up & Get Verified</h3>
-      <p>Enter your DOT number. We check everything automatically. Approved in under 10 minutes. No paperwork. No calls.</p>
+
+<!-- CALCULATOR -->
+<div class="section" id="calculator">
+  <div class="section-label">See your money</div>
+  <h2>How Much Are <span>Brokers Taking?</span></h2>
+  <div class="calculator">
+    <div class="calc-title">💰 Your Real Savings Calculator</div>
+    <div class="calc-grid">
+      <div>
+        <label class="calc-label">Your average load rate ($)</label>
+        <input type="number" class="calc-input" id="load-rate" value="2500" oninput="calcSavings()">
+      </div>
+      <div>
+        <label class="calc-label">Loads per month</label>
+        <input type="number" class="calc-input" id="loads-month" value="8" oninput="calcSavings()">
+      </div>
+      <div>
+        <label class="calc-label">Current broker fee (%)</label>
+        <input type="number" class="calc-input" id="broker-fee" value="22" oninput="calcSavings()">
+      </div>
+      <div>
+        <label class="calc-label">Days to get paid now</label>
+        <input type="number" class="calc-input" id="pay-days" value="45" oninput="calcSavings()">
+      </div>
+      <div class="calc-result">
+        <div class="result-item">
+          <div class="result-num negative" id="broker-cut">-$4,400</div>
+          <div class="result-label">Broker takes monthly</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num yellow" id="clawhaul-cut">-$1,000</div>
+          <div class="result-label">CLAWHAUL takes (5%)</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num positive" id="monthly-save">+$3,400</div>
+          <div class="result-label">You keep extra monthly</div>
+        </div>
+        <div class="result-item">
+          <div class="result-num positive" id="yearly-save">+$40,800</div>
+          <div class="result-label">You keep extra yearly</div>
+        </div>
+      </div>
     </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <h3>AI Finds Your Load</h3>
-      <p>Tell us where you are and what you're hauling. Our AI scans every available load and sends you the best match instantly.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <h3>Tap. Drive. Deliver.</h3>
-      <p>Accept the load with one tap. Get full details immediately. No negotiating. No chasing paperwork.</p>
-    </div>
-    <div class="step">
-      <div class="step-num">04</div>
-      <h3>Get Paid in 24 Hours</h3>
-      <p>Upload your delivery photo. Payment hits your bank within 24 hours. Every time. No factoring fees. No net-30 waiting.</p>
+    <p style="font-size:0.75rem;opacity:0.4;margin-top:1rem;">* Calculator shows estimated savings based on your inputs. Actual results depend on load volume and rates.</p>
+    <div style="margin-top:1.5rem;text-align:center;">
+      <a href="https://tally.so/r/2E7APL" class="btn btn-primary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Calculator'})">Join Waitlist — Keep More Money →</a>
     </div>
   </div>
-  <div class="section-label">Built for</div>
-  <h2>Drivers win.<span> Shippers win.</span></h2>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="section" id="how">
+  <div class="section-label">How it works</div>
+  <h2>Four Steps. <span>Zero Brokers.</span></h2>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><h3>Sign Up & Get Verified</h3><p>Enter your DOT number. We verify insurance, CDL, and safety score automatically in under 10 minutes. No paperwork. No calls.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>AI Finds Your Load</h3><p>Tell us your location and equipment. Our AI scans every available load and sends you the best match instantly. No scrolling load boards for hours.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Tap Accept. Drive.</h3><p>One tap to accept. Full shipper details, pickup instructions, and BOL generated automatically. No phone calls. No negotiating with brokers.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Paid in 24 Hours</h3><p>Upload delivery photo. Payment hits your bank account within 24 hours. Every time. No factoring fees. No net-60 waiting games.</p></div>
+  </div>
+</div>
+
+<!-- WHO ITS FOR -->
+<div class="section">
+  <div class="section-label">Built for both sides</div>
+  <h2>Drivers Win. <span>Shippers Win.</span></h2>
   <div class="cards">
     <div class="card">
       <div class="card-icon">🚛</div>
       <h3>Owner Operators & Carriers</h3>
-      <p>Stop losing 20-30% to brokers who add zero value. CLAWHAUL takes 5% flat and gives you tools no broker ever offered.</p>
-      <div class="card-benefit">Get paid in 24 hours guaranteed</div>
-      <div class="card-benefit">Never deadhead again</div>
-      <div class="card-benefit">Free compliance tracking included</div>
-      <div class="card-benefit">Your safety score works for you</div>
+      <p>You do the work. Brokers take 20%. That ends with CLAWHAUL. We take 5% flat and give you tools no broker ever offered.</p>
+      <div class="card-benefit">Get paid in 24 hours — guaranteed</div>
+      <div class="card-benefit">Return loads always available — no empty miles</div>
+      <div class="card-benefit">Free compliance and IFTA tracking included</div>
+      <div class="card-benefit">Your safety score gets you better loads</div>
+      <div class="card-benefit">No monthly fees — we only win when you win</div>
+      <br>
+      <a href="https://tally.so/r/2E7APL" class="btn btn-primary" style="font-size:0.95rem;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Driver Card'})">Join as Driver →</a>
     </div>
     <div class="card">
       <div class="card-icon">📦</div>
       <h3>Shippers & Businesses</h3>
-      <p>Post a load in 2 minutes. Get a matched vetted carrier within the hour. Know exactly where your freight is at all times.</p>
-      <div class="card-benefit">Every carrier fully vetted automatically</div>
-      <div class="card-benefit">Real-time tracking on every shipment</div>
-      <div class="card-benefit">Fair market rates — no broker markup</div>
-      <div class="card-benefit">Digital BOL and invoicing automatic</div>
-    </div>
-  </div>
-  <div class="section-label">The math</div>
-  <h2>Why drivers <span>switch fast.</span></h2>
-  <div class="numbers">
-    <div class="number-box">
-      <div class="number-big">$375</div>
-      <div class="number-label">Extra per $2,500 load vs 20% broker</div>
-    </div>
-    <div class="number-box">
-      <div class="number-big">$19,500</div>
-      <div class="number-label">Extra per year on 52 loads</div>
-    </div>
-    <div class="number-box">
-      <div class="number-big">24hrs</div>
-      <div class="number-label">vs 30-90 day broker payment</div>
-    </div>
-    <div class="number-box">
-      <div class="number-big">0</div>
-      <div class="number-label">Phone calls to find a load</div>
+      <p>Post a load in 2 minutes. Get a matched, fully vetted carrier within the hour. Track every shipment live. Pay only on confirmed delivery.</p>
+      <div class="card-benefit">Every carrier vetted — insurance, DOT, safety score</div>
+      <div class="card-benefit">Real-time tracking on every load</div>
+      <div class="card-benefit">Fair rates — no broker 20% markup on your bill</div>
+      <div class="card-benefit">Digital BOL and invoicing — zero paperwork</div>
+      <div class="card-benefit">Reliable carriers who get paid fast — so they show up</div>
+      <br>
+      <a href="https://tally.so/r/2E7APL" class="btn btn-secondary" style="font-size:0.95rem;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Shipper Card'})">Post Your First Load →</a>
     </div>
   </div>
 </div>
+
+<!-- NUMBERS -->
+<div class="section">
+  <div class="section-label">Industry facts</div>
+  <h2>Why This <span>Has To Change.</span></h2>
+  <div class="numbers">
+    <div class="number-box"><div class="number-big">$906B</div><div class="number-label">US trucking industry revenue</div></div>
+    <div class="number-box"><div class="number-big">20-30%</div><div class="number-label">Average broker fee taken from drivers</div></div>
+    <div class="number-box"><div class="number-big">35%</div><div class="number-label">Of miles driven empty — wasted money</div></div>
+    <div class="number-box"><div class="number-big">60 days</div><div class="number-label">Average wait for driver payment</div></div>
+  </div>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="section">
+  <div class="disclaimer">
+    <strong>Honest note from CLAWHAUL:</strong> We are currently in pre-launch. The waitlist is free and collects your interest — no payment required. When you join, you are signing up to be notified when we launch and to receive early access. We do not currently process loads or payments. We are building the platform now. Everything we promise above is what the platform will do when it launches. If that changes, we will tell you immediately.
+  </div>
+</div>
+
+<!-- SIGNUP -->
 <div class="section" id="signup">
   <div class="signup-section">
-    <div class="section-label" style="justify-content:center">Early access</div>
-    <h2>Get In <span>First.</span></h2>
-    <p>CLAWHAUL is launching soon. Join the waitlist now and get priority access and first pick of loads on day one.</p>
+    <div class="section-label" style="justify-content:center;">Free waitlist</div>
+    <h2>Be First <span>When We Launch.</span></h2>
+    <p style="opacity:0.6;margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6;">Join free. Get priority access when we launch. No credit card. No spam. Just first access to the platform that gives trucking back to the drivers.</p>
     <div class="signup-tabs">
-      <button class="tab active" onclick="setTab(this,'driver')">I'm a Driver</button>
-      <button class="tab" onclick="setTab(this,'shipper')">I'm a Shipper</button>
+      <a href="https://tally.so/r/2E7APL" class="tab active" onclick="gtag('event','click',{event_category:'CTA',event_label:'Driver Tab'})">I'm a Driver</a>
+      <a href="https://tally.so/r/2E7APL" class="tab" onclick="gtag('event','click',{event_category:'CTA',event_label:'Shipper Tab'})">I'm a Shipper</a>
+      <a href="https://tally.so/r/2E7APL" class="tab" onclick="gtag('event','click',{event_category:'CTA',event_label:'Dispatcher Tab'})">I'm a Dispatcher</a>
     </div>
-    <div class="signup-form">
-      <input type="email" id="email-input" placeholder="Enter your email address">
-      <button class="btn btn-primary" onclick="handleSignup()">Join Waitlist →</button>
-    </div>
-    <div class="success-msg" id="success-msg">✓ You're on the list. We'll be in touch soon.</div>
-    <p class="small-text">No spam. No credit card. Just first access when we launch.</p>
+    <a href="https://tally.so/r/2E7APL" class="btn btn-primary" style="font-size:1.2rem;padding:1.2rem 3rem;display:inline-flex;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Main Signup'})">Join Waitlist Free →</a>
+    <p style="font-size:0.72rem;opacity:0.35;margin-top:1.5rem;">No credit card. No spam. Unsubscribe anytime.</p>
   </div>
 </div>
+
 <footer>
-  <div class="logo">CLAW<span>HAUL</span></div>
-  <p>© 2026 CLAWHAUL. All rights reserved.</p>
-  <p>clawhaul.live</p>
+  <div class="footer-brand">
+    <div class="logo">CLAW<span>HAUL</span></div>
+    <p>The AI freight network built for drivers. Taking 5% so you keep 95%. Launching soon.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Platform</h4>
+    <a href="https://tally.so/r/2E7APL">Join as Driver</a>
+    <a href="https://tally.so/r/2E7APL">Post a Load</a>
+    <a href="#calculator">Savings Calculator</a>
+    <a href="#how">How It Works</a>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <a href="https://tally.so/r/2E7APL">About CLAWHAUL</a>
+    <a href="mailto:hello@clawhaul.live">Contact Us</a>
+  </div>
+  <div class="footer-col">
+    <h4>Contact</h4>
+    <a href="mailto:hello@clawhaul.live">hello@clawhaul.live</a>
+    <a href="https://tally.so/r/2E7APL">Send a message</a>
+  </div>
 </footer>
+<div class="footer-bottom">
+  <p>© 2026 CLAWHAUL. All rights reserved. clawhaul.live</p>
+  <p>Pre-launch — joining the waitlist is free and non-binding.</p>
+</div>
+
 <script>
-  let currentTab = 'driver';
-  function setTab(el, type) {
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    currentTab = type;
-    document.getElementById('email-input').placeholder =
-      type === 'driver' ? 'Enter your email address' : 'Enter your business email';
-  }
-  function handleSignup() {
-    const email = document.getElementById('email-input').value;
-    if (!email || !email.includes('@')) {
-      document.getElementById('email-input').style.borderColor = '#ff4444';
-      return;
-    }
-    document.getElementById('email-input').style.borderColor = '';
-    document.querySelector('.signup-form').style.display = 'none';
-    document.getElementById('success-msg').style.display = 'block';
-  }
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.step, .card, .number-box').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
+function calcSavings(){
+  const rate=parseFloat(document.getElementById('load-rate').value)||0;
+  const loads=parseFloat(document.getElementById('loads-month').value)||0;
+  const brokerPct=parseFloat(document.getElementById('broker-fee').value)||0;
+  const monthly=rate*loads;
+  const brokerCut=monthly*(brokerPct/100);
+  const clawhaulCut=monthly*0.05;
+  const save=brokerCut-clawhaulCut;
+  document.getElementById('broker-cut').textContent='-$'+Math.round(brokerCut).toLocaleString();
+  document.getElementById('clawhaul-cut').textContent='-$'+Math.round(clawhaulCut).toLocaleString();
+  document.getElementById('monthly-save').textContent='+$'+Math.round(save).toLocaleString();
+  document.getElementById('yearly-save').textContent='+$'+Math.round(save*12).toLocaleString();
+}
+calcSavings();
+const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}});},{threshold:0.08});
+document.querySelectorAll('.step,.card,.number-box').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
 </script>
 </body>
 </html>
+HTMLEOF
+echo "Done"
