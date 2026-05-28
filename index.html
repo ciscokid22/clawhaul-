@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLAWHAUL — The AI Freight Network</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --yellow: #FFD000;
+    --orange: #FF6B00;
+    --white: #F5F0E8;
+    --gray: #1a1a1a;
+    --mid: #2a2a2a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    letter-spacing: 0.05em;
+    color: var(--yellow);
+  }
+  .logo span { color: var(--white); }
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+  nav a:hover { opacity: 1; }
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--yellow);
+  }
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.5rem, 12vw, 9rem);
+    line-height: 0.9;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+  h1 em {
+    font-style: normal;
+    color: var(--yellow);
+    display: block;
+  }
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    font-weight: 300;
+    line-height: 1.6;
+    max-width: 540px;
+    opacity: 0.75;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+  .stats-bar {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+  .stat { border-left: 2px solid var(--yellow); padding-left: 1rem; }
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.8rem;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 0.25rem;
+  }
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-primary { background: var(--yellow); color: var(--black); }
+  .btn-primary:hover {
+    background: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(255,208,0,0.3);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid #333;
+  }
+  .btn-secondary:hover { border-color: var(--white); transform: translateY(-2px); }
+  .ticker {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 0.6rem 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex;
+    gap: 3rem;
+    animation: ticker 20s linear infinite;
+  }
+  .ticker-item {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .ticker-item::before { content: '▶'; font-size: 0.6rem; }
+  .section {
+    padding: 6rem 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: var(--yellow);
+  }
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 3rem;
+  }
+  h2 span { color: var(--yellow); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: #222;
+    border: 1px solid #222;
+    margin-bottom: 6rem;
+  }
+  .step {
+    background: var(--black);
+    padding: 2.5rem;
+    transition: background 0.3s;
+  }
+  .step:hover { background: var(--gray); }
+  .step-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 4rem;
+    color: #1f1f1f;
+    line-height: 1;
+    margin-bottom: 1rem;
+    transition: color 0.3s;
+  }
+  .step:hover .step-num { color: var(--yellow); }
+  .step h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+  .step p { font-size: 0.9rem; line-height: 1.7; opacity: 0.6; }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 6rem;
+  }
+  .card {
+    border: 1px solid #222;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .card:hover { border-color: var(--yellow); }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .card:hover::before { transform: scaleX(1); }
+  .card-icon { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  .card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .card p { font-size: 0.9rem; line-height: 1.7; opacity: 0.6; margin-bottom: 1.5rem; }
+  .card-benefit {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--yellow);
+    margin-bottom: 0.5rem;
+  }
+  .card-benefit::before { content: '✓'; }
+  .numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1px;
+    background: #1a1a1a;
+    border: 1px solid #1a1a1a;
+    margin-bottom: 6rem;
+  }
+  .number-box { background: var(--black); padding: 3rem 2rem; text-align: center; }
+  .number-big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 3.5rem;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .number-label { font-size: 0.8rem; opacity: 0.5; text-transform: uppercase; letter-spacing: 0.12em; }
+  .signup-section {
+    background: var(--gray);
+    border: 1px solid #2a2a2a;
+    padding: 4rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+  .signup-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(255,208,0,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .signup-section h2 { margin-bottom: 1rem; }
+  .signup-section p {
+    opacity: 0.6;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  .signup-form {
+    display: flex;
+    gap: 0.75rem;
+    max-width: 480px;
+    margin: 0 auto 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .signup-form input {
+    flex: 1;
+    min-width: 220px;
+    padding: 1rem 1.25rem;
+    background: var(--black);
+    border: 1px solid #333;
+    color: var(--white);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .signup-form input:focus { border-color: var(--yellow); }
+  .signup-form input::placeholder { opacity: 0.4; }
+  .signup-tabs {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 0.6rem 1.5rem;
+    border: 1px solid #333;
+    background: transparent;
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0.5;
+  }
+  .tab.active { border-color: var(--yellow); color: var(--yellow); opacity: 1; }
+  .small-text { font-size: 0.75rem; opacity: 0.4; margin-top: 1rem; }
+  footer {
+    border-top: 1px solid #1a1a1a;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  footer .logo { font-size: 1.2rem; }
+  footer p { font-size: 0.8rem; opacity: 0.3; }
+  .success-msg {
+    display: none;
+    color: var(--yellow);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    margin-top: 1rem;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 1rem; }
+    .hero { padding: 5rem 1.5rem 3rem; }
+    .section { padding: 4rem 1.5rem; }
+    .stats-bar { gap: 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">CLAW<span>HAUL</span></div>
+  <a href="#signup">Join Waitlist</a>
+</nav>
+<section class="hero">
+  <div class="hero-tag">The future of freight is here</div>
+  <h1>The AI That<em>Runs Trucking.</em></h1>
+  <p class="hero-sub">No brokers. No phone calls. No 30-day waits for payment. CLAWHAUL matches every load to the right driver instantly — and pays in 24 hours.</p>
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">5%</div>
+      <div class="stat-label">Our cut. Not 20-30%.</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24hr</div>
+      <div class="stat-label">Driver payment</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$906B</div>
+      <div class="stat-label">Industry we're disrupting</div>
+    </div>
+  </div>
+  <div class="btn-group">
+    <a href="#signup" class="btn btn-primary">Join as Driver →</a>
+    <a href="#signup" class="btn btn-secondary">Post a Load</a>
+  </div>
+</section>
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-item">Instant Load Matching</span>
+    <span class="ticker-item">24-Hour Driver Payment</span>
+    <span class="ticker-item">Full DOT Verification</span>
+    <span class="ticker-item">5% Flat Fee — Not 20-30%</span>
+    <span class="ticker-item">AI-Powered Dispatch</span>
+    <span class="ticker-item">No Deadhead Miles</span>
+    <span class="ticker-item">Zero Phone Calls</span>
+    <span class="ticker-item">Instant Load Matching</span>
+    <span class="ticker-item">24-Hour Driver Payment</span>
+    <span class="ticker-item">Full DOT Verification</span>
+    <span class="ticker-item">5% Flat Fee — Not 20-30%</span>
+    <span class="ticker-item">AI-Powered Dispatch</span>
+    <span class="ticker-item">No Deadhead Miles</span>
+    <span class="ticker-item">Zero Phone Calls</span>
+  </div>
+</div>
+<div class="section">
+  <div class="section-label">How it works</div>
+  <h2>Simple as <span>it gets.</span></h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Sign Up & Get Verified</h3>
+      <p>Enter your DOT number. We check everything automatically. Approved in under 10 minutes. No paperwork. No calls.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>AI Finds Your Load</h3>
+      <p>Tell us where you are and what you're hauling. Our AI scans every available load and sends you the best match instantly.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Tap. Drive. Deliver.</h3>
+      <p>Accept the load with one tap. Get full details immediately. No negotiating. No chasing paperwork.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Get Paid in 24 Hours</h3>
+      <p>Upload your delivery photo. Payment hits your bank within 24 hours. Every time. No factoring fees. No net-30 waiting.</p>
+    </div>
+  </div>
+  <div class="section-label">Built for</div>
+  <h2>Drivers win.<span> Shippers win.</span></h2>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">🚛</div>
+      <h3>Owner Operators & Carriers</h3>
+      <p>Stop losing 20-30% to brokers who add zero value. CLAWHAUL takes 5% flat and gives you tools no broker ever offered.</p>
+      <div class="card-benefit">Get paid in 24 hours guaranteed</div>
+      <div class="card-benefit">Never deadhead again</div>
+      <div class="card-benefit">Free compliance tracking included</div>
+      <div class="card-benefit">Your safety score works for you</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📦</div>
+      <h3>Shippers & Businesses</h3>
+      <p>Post a load in 2 minutes. Get a matched vetted carrier within the hour. Know exactly where your freight is at all times.</p>
+      <div class="card-benefit">Every carrier fully vetted automatically</div>
+      <div class="card-benefit">Real-time tracking on every shipment</div>
+      <div class="card-benefit">Fair market rates — no broker markup</div>
+      <div class="card-benefit">Digital BOL and invoicing automatic</div>
+    </div>
+  </div>
+  <div class="section-label">The math</div>
+  <h2>Why drivers <span>switch fast.</span></h2>
+  <div class="numbers">
+    <div class="number-box">
+      <div class="number-big">$375</div>
+      <div class="number-label">Extra per $2,500 load vs 20% broker</div>
+    </div>
+    <div class="number-box">
+      <div class="number-big">$19,500</div>
+      <div class="number-label">Extra per year on 52 loads</div>
+    </div>
+    <div class="number-box">
+      <div class="number-big">24hrs</div>
+      <div class="number-label">vs 30-90 day broker payment</div>
+    </div>
+    <div class="number-box">
+      <div class="number-big">0</div>
+      <div class="number-label">Phone calls to find a load</div>
+    </div>
+  </div>
+</div>
+<div class="section" id="signup">
+  <div class="signup-section">
+    <div class="section-label" style="justify-content:center">Early access</div>
+    <h2>Get In <span>First.</span></h2>
+    <p>CLAWHAUL is launching soon. Join the waitlist now and get priority access and first pick of loads on day one.</p>
+    <div class="signup-tabs">
+      <button class="tab active" onclick="setTab(this,'driver')">I'm a Driver</button>
+      <button class="tab" onclick="setTab(this,'shipper')">I'm a Shipper</button>
+    </div>
+    <div class="signup-form">
+      <input type="email" id="email-input" placeholder="Enter your email address">
+      <button class="btn btn-primary" onclick="handleSignup()">Join Waitlist →</button>
+    </div>
+    <div class="success-msg" id="success-msg">✓ You're on the list. We'll be in touch soon.</div>
+    <p class="small-text">No spam. No credit card. Just first access when we launch.</p>
+  </div>
+</div>
+<footer>
+  <div class="logo">CLAW<span>HAUL</span></div>
+  <p>© 2026 CLAWHAUL. All rights reserved.</p>
+  <p>clawhaul.live</p>
+</footer>
+<script>
+  let currentTab = 'driver';
+  function setTab(el, type) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    currentTab = type;
+    document.getElementById('email-input').placeholder =
+      type === 'driver' ? 'Enter your email address' : 'Enter your business email';
+  }
+  function handleSignup() {
+    const email = document.getElementById('email-input').value;
+    if (!email || !email.includes('@')) {
+      document.getElementById('email-input').style.borderColor = '#ff4444';
+      return;
+    }
+    document.getElementById('email-input').style.borderColor = '';
+    document.querySelector('.signup-form').style.display = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.step, .card, .number-box').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
