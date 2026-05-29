@@ -1,6 +1,4 @@
-
-
-cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
+Cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +6,6 @@ cat > /mnt/user-data/outputs/index.html << 'HTMLEOF'
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CLAWHAUL — The AI Freight Network</title>
 <meta name="description" content="No brokers. No phone calls. CLAWHAUL matches every load to the right driver instantly and pays in 24 hours. Join the waitlist today.">
-<!-- Google Analytics - Replace GA_MEASUREMENT_ID after setup -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -93,9 +90,6 @@ h2 span{color:var(--yellow);}
 .number-label{font-size:0.75rem;opacity:0.5;text-transform:uppercase;letter-spacing:0.1em;}
 .signup-section{background:var(--gray);border:1px solid #2a2a2a;padding:4rem 2rem;text-align:center;position:relative;overflow:hidden;margin-bottom:2rem;}
 .signup-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,208,0,0.05) 0%,transparent 70%);pointer-events:none;}
-.signup-tabs{display:flex;gap:1rem;justify-content:center;margin-bottom:2rem;flex-wrap:wrap;}
-.tab{padding:0.6rem 1.5rem;border:1px solid #333;background:transparent;color:var(--white);font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;text-decoration:none;display:inline-block;}
-.tab:hover,.tab.active{border-color:var(--yellow);color:var(--yellow);}
 .disclaimer{background:#1a1a1a;border:1px solid #2a2a2a;padding:1.5rem 2rem;margin-bottom:2rem;font-size:0.82rem;line-height:1.6;opacity:0.6;}
 .disclaimer strong{color:var(--yellow);opacity:1;}
 footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;}
@@ -129,7 +123,7 @@ footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template
     <a href="#how">How It Works</a>
     <a href="#calculator">Savings</a>
     <a href="#signup">Join</a>
-    <a href="https://tally.so/r/2E7APL" class="nav-cta">Join Free →</a>
+    <a href="#signup" class="nav-cta">Join Free →</a>
   </div>
 </nav>
 
@@ -144,21 +138,13 @@ footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template
     <div class="stat"><div class="stat-num">Free</div><div class="stat-label">To join waitlist</div></div>
   </div>
   <div class="btn-group">
-    <a href="https://tally.so/r/2E7APL" class="btn btn-primary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Hero Driver'})">Join as Driver — Free →</a>
-    <a href="https://tally.so/r/2E7APL" class="btn btn-secondary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Hero Shipper'})">I Need Trucks →</a>
+    <a href="#signup" class="btn btn-primary">Join as Driver — Free →</a>
+    <a href="#signup" class="btn btn-secondary">I Need Trucks →</a>
   </div>
 </section>
 
 <div class="ticker">
   <div class="ticker-inner">
-    <span class="ticker-item">Instant Load Matching</span>
-    <span class="ticker-item">24-Hour Driver Payment</span>
-    <span class="ticker-item">Full DOT Verification</span>
-    <span class="ticker-item">5% Flat Fee — Not 20-30%</span>
-    <span class="ticker-item">AI-Powered Dispatch</span>
-    <span class="ticker-item">No Deadhead Miles</span>
-    <span class="ticker-item">Zero Phone Calls</span>
-    <span class="ticker-item">No Broker Markup</span>
     <span class="ticker-item">Instant Load Matching</span>
     <span class="ticker-item">24-Hour Driver Payment</span>
     <span class="ticker-item">Full DOT Verification</span>
@@ -212,10 +198,6 @@ footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template
         </div>
       </div>
     </div>
-    <p style="font-size:0.75rem;opacity:0.4;margin-top:1rem;">* Calculator shows estimated savings based on your inputs. Actual results depend on load volume and rates.</p>
-    <div style="margin-top:1.5rem;text-align:center;">
-      <a href="https://tally.so/r/2E7APL" class="btn btn-primary" onclick="gtag('event','click',{event_category:'CTA',event_label:'Calculator'})">Join Waitlist — Keep More Money →</a>
-    </div>
   </div>
 </div>
 
@@ -224,61 +206,10 @@ footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template
   <div class="section-label">How it works</div>
   <h2>Four Steps. <span>Zero Brokers.</span></h2>
   <div class="steps">
-    <div class="step"><div class="step-num">01</div><h3>Sign Up & Get Verified</h3><p>Enter your DOT number. We verify insurance, CDL, and safety score automatically in under 10 minutes. No paperwork. No calls.</p></div>
-    <div class="step"><div class="step-num">02</div><h3>AI Finds Your Load</h3><p>Tell us your location and equipment. Our AI scans every available load and sends you the best match instantly. No scrolling load boards for hours.</p></div>
-    <div class="step"><div class="step-num">03</div><h3>Tap Accept. Drive.</h3><p>One tap to accept. Full shipper details, pickup instructions, and BOL generated automatically. No phone calls. No negotiating with brokers.</p></div>
-    <div class="step"><div class="step-num">04</div><h3>Paid in 24 Hours</h3><p>Upload delivery photo. Payment hits your bank account within 24 hours. Every time. No factoring fees. No net-60 waiting games.</p></div>
-  </div>
-</div>
-
-<!-- WHO ITS FOR -->
-<div class="section">
-  <div class="section-label">Built for both sides</div>
-  <h2>Drivers Win. <span>Shippers Win.</span></h2>
-  <div class="cards">
-    <div class="card">
-      <div class="card-icon">🚛</div>
-      <h3>Owner Operators & Carriers</h3>
-      <p>You do the work. Brokers take 20%. That ends with CLAWHAUL. We take 5% flat and give you tools no broker ever offered.</p>
-      <div class="card-benefit">Get paid in 24 hours — guaranteed</div>
-      <div class="card-benefit">Return loads always available — no empty miles</div>
-      <div class="card-benefit">Free compliance and IFTA tracking included</div>
-      <div class="card-benefit">Your safety score gets you better loads</div>
-      <div class="card-benefit">No monthly fees — we only win when you win</div>
-      <br>
-      <a href="https://tally.so/r/2E7APL" class="btn btn-primary" style="font-size:0.95rem;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Driver Card'})">Join as Driver →</a>
-    </div>
-    <div class="card">
-      <div class="card-icon">📦</div>
-      <h3>Shippers & Businesses</h3>
-      <p>Post a load in 2 minutes. Get a matched, fully vetted carrier within the hour. Track every shipment live. Pay only on confirmed delivery.</p>
-      <div class="card-benefit">Every carrier vetted — insurance, DOT, safety score</div>
-      <div class="card-benefit">Real-time tracking on every load</div>
-      <div class="card-benefit">Fair rates — no broker 20% markup on your bill</div>
-      <div class="card-benefit">Digital BOL and invoicing — zero paperwork</div>
-      <div class="card-benefit">Reliable carriers who get paid fast — so they show up</div>
-      <br>
-      <a href="https://tally.so/r/2E7APL" class="btn btn-secondary" style="font-size:0.95rem;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Shipper Card'})">Post Your First Load →</a>
-    </div>
-  </div>
-</div>
-
-<!-- NUMBERS -->
-<div class="section">
-  <div class="section-label">Industry facts</div>
-  <h2>Why This <span>Has To Change.</span></h2>
-  <div class="numbers">
-    <div class="number-box"><div class="number-big">$906B</div><div class="number-label">US trucking industry revenue</div></div>
-    <div class="number-box"><div class="number-big">20-30%</div><div class="number-label">Average broker fee taken from drivers</div></div>
-    <div class="number-box"><div class="number-big">35%</div><div class="number-label">Of miles driven empty — wasted money</div></div>
-    <div class="number-box"><div class="number-big">60 days</div><div class="number-label">Average wait for driver payment</div></div>
-  </div>
-</div>
-
-<!-- DISCLAIMER -->
-<div class="section">
-  <div class="disclaimer">
-    <strong>Honest note from CLAWHAUL:</strong> We are currently in pre-launch. The waitlist is free and collects your interest — no payment required. When you join, you are signing up to be notified when we launch and to receive early access. We do not currently process loads or payments. We are building the platform now. Everything we promise above is what the platform will do when it launches. If that changes, we will tell you immediately.
+    <div class="step"><div class="step-num">01</div><h3>Sign Up & Get Verified</h3><p>Enter your DOT number. We verify insurance, CDL, and safety score automatically in under 10 minutes.</p></div>
+    <div class="step"><div class="step-num">02</div><h3>AI Finds Your Load</h3><p>Our AI scans every available load and sends you the best match instantly.</p></div>
+    <div class="step"><div class="step-num">03</div><h3>Tap Accept. Drive.</h3><p>One tap to accept. Pickup instructions and BOL generated automatically.</p></div>
+    <div class="step"><div class="step-num">04</div><h3>Paid in 24 Hours</h3><p>Upload delivery photo. Payment hits your bank account within 24 hours.</p></div>
   </div>
 </div>
 
@@ -287,46 +218,44 @@ footer{border-top:1px solid #1a1a1a;padding:3rem 2rem;display:grid;grid-template
   <div class="signup-section">
     <div class="section-label" style="justify-content:center;">Free waitlist</div>
     <h2>Be First <span>When We Launch.</span></h2>
-    <p style="opacity:0.6;margin-bottom:2rem;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6;">Join free. Get priority access when we launch. No credit card. No spam. Just first access to the platform that gives trucking back to the drivers.</p>
-    <div class="signup-tabs">
-      <a href="https://tally.so/r/2E7APL" class="tab active" onclick="gtag('event','click',{event_category:'CTA',event_label:'Driver Tab'})">I'm a Driver</a>
-      <a href="https://tally.so/r/2E7APL" class="tab" onclick="gtag('event','click',{event_category:'CTA',event_label:'Shipper Tab'})">I'm a Shipper</a>
-      <a href="https://tally.so/r/2E7APL" class="tab" onclick="gtag('event','click',{event_category:'CTA',event_label:'Dispatcher Tab'})">I'm a Dispatcher</a>
-    </div>
-    <a href="https://tally.so/r/2E7APL" class="btn btn-primary" style="font-size:1.2rem;padding:1.2rem 3rem;display:inline-flex;" onclick="gtag('event','click',{event_category:'CTA',event_label:'Main Signup'})">Join Waitlist Free →</a>
-    <p style="font-size:0.72rem;opacity:0.35;margin-top:1.5rem;">No credit card. No spam. Unsubscribe anytime.</p>
+    <form id="waitlist-form" style="max-width: 400px; margin: 2rem auto;">
+      <input type="text" id="dot-number" placeholder="Enter DOT Number" required class="calc-input" style="width:100%; margin-bottom: 10px; background:#000;">
+      <input type="email" id="user-email" placeholder="Enter Email" required class="calc-input" style="width:100%; margin-bottom: 10px; background:#000;">
+      <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%;">Join Waitlist Free →</button>
+    </form>
+    <div id="status-message" style="margin-top: 1rem; font-weight: bold;"></div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-brand">
-    <div class="logo">CLAW<span>HAUL</span></div>
-    <p>The AI freight network built for drivers. Taking 5% so you keep 95%. Launching soon.</p>
-  </div>
-  <div class="footer-col">
-    <h4>Platform</h4>
-    <a href="https://tally.so/r/2E7APL">Join as Driver</a>
-    <a href="https://tally.so/r/2E7APL">Post a Load</a>
-    <a href="#calculator">Savings Calculator</a>
-    <a href="#how">How It Works</a>
-  </div>
-  <div class="footer-col">
-    <h4>Company</h4>
-    <a href="https://tally.so/r/2E7APL">About CLAWHAUL</a>
-    <a href="mailto:hello@clawhaul.live">Contact Us</a>
-  </div>
-  <div class="footer-col">
-    <h4>Contact</h4>
-    <a href="mailto:hello@clawhaul.live">hello@clawhaul.live</a>
-    <a href="https://tally.so/r/2E7APL">Send a message</a>
-  </div>
+  <div class="footer-brand"><div class="logo">CLAW<span>HAUL</span></div></div>
+  <p>© 2026 CLAWHAUL. clawhaul.live</p>
 </footer>
-<div class="footer-bottom">
-  <p>© 2026 CLAWHAUL. All rights reserved. clawhaul.live</p>
-  <p>Pre-launch — joining the waitlist is free and non-binding.</p>
-</div>
 
-<script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+const supabase = createClient('YOUR_SUPABASE_URL', 'YOUR_SUPABASE_ANON_KEY')
+
+document.getElementById('waitlist-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('status-message');
+  btn.textContent = "Joining...";
+  const { error } = await supabase.from('waitlist').insert([{ 
+    dot_number: document.getElementById('dot-number').value, 
+    email: document.getElementById('user-email').value 
+  }]);
+  if (error) {
+    msg.textContent = "Error: " + error.message;
+    btn.textContent = "Join Waitlist Free →";
+  } else {
+    msg.textContent = "Success! You are on the list.";
+    msg.style.color = "#FFD000";
+    document.getElementById('waitlist-form').reset();
+    btn.textContent = "Joined!";
+  }
+});
+
 function calcSavings(){
   const rate=parseFloat(document.getElementById('load-rate').value)||0;
   const loads=parseFloat(document.getElementById('loads-month').value)||0;
@@ -341,8 +270,6 @@ function calcSavings(){
   document.getElementById('yearly-save').textContent='+$'+Math.round(save*12).toLocaleString();
 }
 calcSavings();
-const observer=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.style.opacity='1';entry.target.style.transform='translateY(0)';}});},{threshold:0.08});
-document.querySelectorAll('.step,.card,.number-box').forEach(el=>{el.style.opacity='0';el.style.transform='translateY(24px)';el.style.transition='opacity 0.5s ease,transform 0.5s ease';observer.observe(el);});
 </script>
 </body>
 </html>
